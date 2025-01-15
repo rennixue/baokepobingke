@@ -68,7 +68,7 @@ Json
 
 
 
-EXAM_KP_EXTRACT = ```
+T2_1_EXAM_KP_EXTRACT = ```
 
 # Role: Knowledge Points Extractor
 
@@ -109,5 +109,4 @@ Analyze the lecture material provided in `<material>%s</material>`${EXAM_QUESTIO
 ## Output Rules
 - No commentary: Do not include any explanations or remarks outside of the JSON.
 - Verified information only: Do not assume or guess missing information.
-
 ```
