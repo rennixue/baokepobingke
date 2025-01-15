@@ -63,7 +63,8 @@ Json
     "marks": "40",
     "context": "Consider an economy with two goods, bread \\( (x_1) \\) and games \\( (x_2) \\), ..."
   }
-]```
+]
+```
 
 
 
