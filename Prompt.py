@@ -2,18 +2,21 @@ T2_1_EXAM_INFO_EXTRACT = ```
 
 # Role: Exam Information Extractor
 
-## Task: Extract specific information from the provided exam paper: <document> %s </document>. Follow each step and reasoning process strictly to ensure precise extraction. This task will be carried out step by step.
+## Task: Extract specific information from the provided exam paper: <document> %s </document>$. Follow each step and reasoning process strictly to ensure precise extraction. This task will be carried out step by step.
 
 ## Extraction Requirements:
 Extract the following fields:
-- university. For example：University of Alberta
+- university. For example：University of Alberta 
 - course_code. For example：ECON 102A1
 - course_name. For example：Principle of Macroeconomics
 - exam_year. For example：2018
 - semester. For example：autumn smester
 - duration. For example：3 hrs
 - exam_structure. For example：part_a, part_b
-- others . For example：Word limit: 400, answer not longer than 5 sentences...
+- others . For example：Word limit: 400, answer not longer than 5 sentences... 
+
+## Constraints
+If the above entries are not provided in the document, output "NA".
 
 ### JSON Output Format:
 Json
@@ -21,13 +24,12 @@ Json
 {
   " university ": " University of Alberta ",
   " course_code ": " ECON 102A1",
-  " course_name ": “Principle of Macroeconomics”,
-  " exam_year ": “2018”,
+  " course_name ": “Principle of Macroeconomics",
+  " exam_year ": "2018",
   " semester ": "autumn smester",
-  " duration ": “3 hrs”,
-“exam_structure”：”part_a, part_b…”,
-“others” : “For example：Word limit: 400, answer not longer than 5 sentences”
-
+  " duration ": "3 hrs",
+  "exam_structure": "part_a, part_b…",
+  "others" : "For example: Word limit: 400, answer not longer than 5 sentences"
 }
 ]
 ```
