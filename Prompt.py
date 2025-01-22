@@ -102,7 +102,7 @@ Analyze the lecture material provided in `<material>%s</material>`${EXAM_QUESTIO
 - " Theories "
  3. **Filter**
 	- Skip any redundant or trivial information.
-- Restrict kp_lec to a maximum of 4 words.
+- Restrict kp_lec to a maximum of 6 words.
 4. **Topic Definition**
 	- Use a single unique topic (topic_lec) per material.
 - Group all related kp_lec and kp_value under their respective topic.
