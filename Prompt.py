@@ -84,7 +84,7 @@ Analyze the lecture material provided in `<material>%s</material>`${EXAM_QUESTIO
   {
     "knowledge_points": [
       {
-        "kp_lec": "[short knowledge point (4 words max)]",
+        "kp_lec": "[short knowledge point (6 words max)]",
         "kp_value": "[original context of the knowledge point]"
       }
     ]
