@@ -4,13 +4,10 @@
 import pandas as pd
 import os
 
-# 读取指定工作表
 df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
 
-# 创建一个列表保存结果
 result = []
 
-# 文件夹路径
 base_path = "file/Ltaiyang_74_Writing/"
 
 # 遍历每一行，获取第一列的文本和对应的原文件名
@@ -34,6 +31,7 @@ result_df.to_excel("统计结果.xlsx", index=False)
 
 print("统计完成，结果已保存到 统计结果.xlsx")
 
+
 #%% md
 # # 模糊匹配
 #%%
@@ -45,13 +43,10 @@ def calculate_similarity(a, b):
     """计算两个字符串的相似度"""
     return SequenceMatcher(None, a, b).ratio()
 
-# 读取指定工作表
 df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
 
-# 文件夹路径
 base_path = "file/Ltaiyang_74_Writing/"
 
-# 保存结果
 result = []
 
 # 遍历每一行，获取第一列的文本和对应的原文件名
@@ -88,6 +83,7 @@ result_df.to_excel("模糊匹配统计结果.xlsx", index=False)
 
 print("模糊匹配完成，结果已保存到 模糊匹配统计结果.xlsx")
 
+
 #%% md
 # # idf
 #%%
@@ -96,10 +92,8 @@ import numpy as np
 import os
 import math
 
-# 读取 Excel 文件
 df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
 
-# 文件夹路径
 base_path = "file/Ltaiyang_74_Writing/"
 
 # 计算总文档数 N（统计所有 .txt 文件）
@@ -136,6 +130,7 @@ idf_df.to_excel("idf_smooth_result.xlsx", index=False)
 
 print("IDF 计算完成，结果已保存到 idf_smooth_result.xlsx")
 
+
 #%% md
 # # 总词数
 # 
@@ -143,10 +138,8 @@ print("IDF 计算完成，结果已保存到 idf_smooth_result.xlsx")
 import pandas as pd
 import os
 
-# 设置文件夹路径
 base_path = "file/Ltaiyang_74_Writing/"
 
-# 读取 Excel 文件
 df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
 
 # 函数：计算文本文件的总词数
