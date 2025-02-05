@@ -37,11 +37,16 @@ print("统计完成，结果已保存到 统计结果.xlsx")
 #%%
 import pandas as pd
 import os
-from difflib import SequenceMatcher
 
-def calculate_similarity(a, b):
-    """计算两个字符串的相似度"""
-    return SequenceMatcher(None, a, b).ratio()
+
+def fuzzy_match(wds, txt):
+    mt = 0
+    txt = txt.lower()
+    for wd in wds:
+        if wd in txt:
+            mt += 1
+    return mt / len(wds)
+
 
 df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
 
@@ -52,6 +57,7 @@ result = []
 # 遍历每一行，获取第一列的文本和对应的原文件名
 for _, row in df.iterrows():
     text = row.iloc[0]  # 第一列的文本
+    text_words = [w.lower() for w in text.split(" ")]
     orig_file_name = row['orig_file_name'].rsplit('.', 1)[0] + ".txt"  # 替换为 .txt 后缀
     orig_file = os.path.join(base_path, orig_file_name)  # 构造完整路径
 
@@ -60,13 +66,13 @@ for _, row in df.iterrows():
             content = file.read()
 
         # 定义滑动窗口大小为文本长度的 1.5 倍
-        window_size = int(len(text) * 1.5)
+        window_size = int(len(text) * 1.5) + 1
         match_count = 0  # 统计匹配次数
 
         # 滑动窗口遍历原文，计算相似度
         for i in range(0, len(content) - window_size + 1):
             window_text = content[i:i + window_size]
-            similarity = calculate_similarity(text, window_text)
+            similarity = fuzzy_match(text_words, window_text)
 
             if similarity >= 0.8:  # 如果相似度大于等于 0.8，计数一次
                 match_count += 1
@@ -133,7 +139,7 @@ print("IDF 计算完成，结果已保存到 idf_smooth_result.xlsx")
 
 #%% md
 # # 总词数
-# 
+#
 #%%
 import pandas as pd
 import os
@@ -168,5 +174,3 @@ df['total_word_count'] = df.apply(process_file_path, axis=1)
 
 # 保存结果到新的 Excel 文件
 df.to_excel("output_file.xlsx", index=False)
-
-#%%
