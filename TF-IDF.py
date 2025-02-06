@@ -32,14 +32,15 @@ result_df.to_excel("统计结果.xlsx", index=False)
 print("统计完成，结果已保存到 统计结果.xlsx")
 
 
+
 #%% md
 # # 模糊匹配
 #%%
 import pandas as pd
 import os
 
-
 def fuzzy_match(wds, txt):
+    """计算两个文本的匹配度，返回匹配词数占比。"""
     mt = 0
     txt = txt.lower()
     for wd in wds:
@@ -47,11 +48,8 @@ def fuzzy_match(wds, txt):
             mt += 1
     return mt / len(wds)
 
-
-df = pd.read_excel("汇总3单人工重要性核查_24Jan_1728.xlsx", sheet_name="Ltaiyang_74_")
-
-base_path = "file/Ltaiyang_74_Writing/"
-
+df = pd.read_excel("汇总3单人工重要性核查_6Feb_1029.xlsx", sheet_name="lizhishaonv_19_")
+base_path = "file/lizhishaonv_19_Writing/"
 result = []
 
 # 遍历每一行，获取第一列的文本和对应的原文件名
@@ -68,14 +66,21 @@ for _, row in df.iterrows():
         # 定义滑动窗口大小为文本长度的 1.5 倍
         window_size = int(len(text) * 1.5) + 1
         match_count = 0  # 统计匹配次数
+        last_match_end = -1  # 记录上一次匹配结束位置，防止重复计数
 
         # 滑动窗口遍历原文，计算相似度
-        for i in range(0, len(content) - window_size + 1):
+        i = 0
+        while i <= len(content) - window_size:
             window_text = content[i:i + window_size]
             similarity = fuzzy_match(text_words, window_text)
 
-            if similarity >= 0.8:  # 如果相似度大于等于 0.8，计数一次
-                match_count += 1
+            if similarity >= 0.8:  # 如果相似度大于等于 0.8
+                if i > last_match_end:  # 确保与上一次匹配不重叠
+                    match_count += 1
+                    last_match_end = i + window_size - 1  # 更新上一次匹配的结束位置
+                i = last_match_end + 1  # 跳过当前窗口长度，避免重复计数
+            else:
+                i += 1
 
         count = match_count
     else:
